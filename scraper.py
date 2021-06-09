@@ -1,3 +1,4 @@
+from os import error, execlp
 import requests
 from bs4 import BeautifulSoup
 import csv
@@ -9,19 +10,24 @@ headers = {"User-Agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Apple
 stock_heads = ["Stock Name", "Current Price", "Previous Close", "Open", "Bid", "Ask", "Day's Range", "52 Week Range", "Volume", "avg Volume"]
 
 #read from urls.csv
-urls = []
-urlname = "urls.csv"
-csv_urls = open(urlname, "r")
-reader = csv.reader(csv_urls)
-for s in reader:
-    urls.append(s[1])
+try:
+    urls = []
+    urlname = "urls.csv"
+    csv_urls = open(urlname, "r")
+    reader = csv.reader(csv_urls)
+    for s in reader:
+        urls.append(s[1])
+except error:
+    print("Failed in reading urls")
 
+try:
+    filename = "data/stockinfo.csv"
+    csv_f = open(filename, "w+")
+    csv_writer = csv.writer(csv_f)
+    csv_writer.writerow(stock_heads)
+except error:
+    print("Failed in creating csv file")
 
-
-filename = "data/stockinfo.csv"
-csv_f = open(filename, "w+")
-csv_writer = csv.writer(csv_f)
-csv_writer.writerow(stock_heads)
 
 for url in urls:
     html_page = requests.get(url, headers=headers)
@@ -54,4 +60,7 @@ for url in urls:
 
 csv_f.close()
 
-send(filename = filename)
+try:
+    send(filename = filename)
+except Exception as e:
+    print("Failed in calling send_email", e)

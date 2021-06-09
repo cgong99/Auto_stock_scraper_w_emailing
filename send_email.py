@@ -6,7 +6,7 @@ from email.mime.base import MIMEBase
 
 def send(filename):
     from_mail = "cgong701@gmail.com"
-    to_mail = "lidatou0708@gmail.com"
+    to_mail = "gongcchen999@gmail.com"
     subject = "Today's stock information from Python"
 
     msg = MIMEMultipart()
@@ -36,10 +36,13 @@ def send(filename):
     # Add attachment to message and convert message to string
     msg.attach(part)
     message = msg.as_string()
-    #password = input()
+
+    print("Please enter password:")
+    password = input()
+    
     #set up the gmail server and the app password
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
-    server.login(from_mail, "lojgigaxzrzvufij")
+    server.login(from_mail, password)
     server.sendmail(from_mail, to_mail, message)
     server.quit()
