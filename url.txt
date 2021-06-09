@@ -1,0 +1,3 @@
+https://finance.yahoo.com/quote/AAPL?p=AAPL&.tsrc=fin-srch 
+https://finance.yahoo.com/quote/FB?p=FB&.tsrc=fin-srch 
+https://finance.yahoo.com/quote/AMZN?p=AMZN&.tsrc=fin-srch
